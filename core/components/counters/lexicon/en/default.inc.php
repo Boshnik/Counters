@@ -9,6 +9,7 @@ $_lang['counters_items'] = 'Counters';
 $_lang['counters_item_id'] = 'Id';
 $_lang['counters_item_name'] = 'Name';
 $_lang['counters_item_context'] = 'Context';
+$_lang['counters_item_all_context'] = 'Use code in all contexts';
 $_lang['counters_item_description'] = 'Description';
 $_lang['counters_item_content'] = 'Content';
 $_lang['counters_item_position'] = 'Position';

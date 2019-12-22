@@ -9,6 +9,7 @@ $_lang['counters_items'] = 'Счетчики';
 $_lang['counters_item_id'] = 'Id';
 $_lang['counters_item_name'] = 'Название';
 $_lang['counters_item_context'] = 'Контекст';
+$_lang['counters_item_all_context'] = 'Использовать код на всех контекстах';
 $_lang['counters_item_description'] = 'Описание';
 $_lang['counters_item_content'] = 'Контент';
 $_lang['counters_item_position'] = 'Расположение';

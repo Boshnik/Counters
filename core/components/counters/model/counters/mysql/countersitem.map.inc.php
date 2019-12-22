@@ -15,6 +15,7 @@ $xpdo_meta_map['CountersItem']= array (
     'content' => '',
     'position' => '',
     'active' => 1,
+    'all_context' => 0,
   ),
   'fieldMeta' => 
   array (
@@ -31,7 +32,7 @@ $xpdo_meta_map['CountersItem']= array (
       'dbtype' => 'varchar',
       'precision' => '100',
       'phptype' => 'string',
-      'null' => false,
+      'null' => true,
       'default' => 'web',
     ),
     'content' => 
@@ -55,6 +56,14 @@ $xpdo_meta_map['CountersItem']= array (
       'phptype' => 'boolean',
       'null' => true,
       'default' => 1,
+    ),
+    'all_context' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'phptype' => 'boolean',
+      'null' => true,
+      'default' => 0,
     ),
   ),
   'indexes' => 

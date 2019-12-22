@@ -22,6 +22,10 @@ Ext.extend(Counters.window.CreateItem, MODx.Window, {
 
     getFields: function (config) {
         return [{
+            xtype: 'hidden',
+            name: 'id',
+            id: config.id + '-id',
+        }, {
             xtype: 'textfield',
             fieldLabel: _('counters_item_name'),
             name: 'name',
@@ -29,31 +33,65 @@ Ext.extend(Counters.window.CreateItem, MODx.Window, {
             anchor: '99%',
             allowBlank: false,
         }, {
-            xtype: 'modx-combo-context',
-            fieldLabel: _('counters_item_context'),
-            name: 'context',
-            id: config.id + '-context',
-            allowBlank: false,
-            anchor: '99%'
-        }, {
             xtype: 'textarea',
             fieldLabel: _('counters_item_content'),
             name: 'content',
             id: config.id + '-content',
-            height: 150,
+            height: 250,
             anchor: '99%'
         }, {
-            xtype: 'modx-combo',
-            fieldLabel: _('counters_item_position'),
-            name: 'position',
-            id: config.id + '-position',
-            store: ['Head','Body']
+            layout: 'column',
+            items: [{
+                columnWidth: .5,
+                layout: 'form',
+                defaults: {msgTarget: 'under'},
+                items: [{
+                    xtype: 'modx-combo-context',
+                    fieldLabel: _('counters_item_context'),
+                    name: 'context',
+                    id: config.id + '-context',
+                    allowBlank: true,
+                    anchor: '99%'
+                }]
+            }, {
+                columnWidth: .5,
+                layout: 'form',
+                defaults: {msgTarget: 'under'},
+                items: [{
+                    xtype: 'modx-combo',
+                    fieldLabel: _('counters_item_position'),
+                    name: 'position',
+                    id: config.id + '-position',
+                    allowBlank: false,
+                    store: ['Head','Body'],
+                    listeners: {
+                        render: function() {
+                            if(Ext.isEmpty(this.value)) {
+                                this.setValue('Head');    
+                            }
+                        }
+                    }
+                }]
+            }]
         }, {
-            xtype: 'xcheckbox',
-            boxLabel: _('counters_item_active'),
-            name: 'active',
-            id: config.id + '-active',
-            checked: true,
+            xtype: 'checkboxgroup',
+            hideLabel: true,
+            name: 'checkboxgroup',
+            columns: 2,
+            items:[{
+                xtype: 'xcheckbox',
+                boxLabel: _('counters_item_all_context'),
+                name: 'all_context',
+                id: config.id + '-all_context',
+                anchor: '99%',
+                checked: config.record ? config.record.object['all_context'] : false,
+            }, {
+                xtype: 'xcheckbox',
+                boxLabel: _('counters_item_active'),
+                name: 'active',
+                id: config.id + '-active',
+                checked: true,
+            }]
         }];
     },
 
@@ -87,43 +125,7 @@ Counters.window.UpdateItem = function (config) {
 Ext.extend(Counters.window.UpdateItem, MODx.Window, {
 
     getFields: function (config) {
-        return [{
-            xtype: 'hidden',
-            name: 'id',
-            id: config.id + '-id',
-        }, {
-            xtype: 'textfield',
-            fieldLabel: _('counters_item_name'),
-            name: 'name',
-            id: config.id + '-name',
-            anchor: '99%',
-            allowBlank: false,
-        }, {
-            xtype: 'modx-combo-context',
-            fieldLabel: _('counters_item_context'),
-            name: 'context',
-            id: config.id + '-context',
-            allowBlank: false,
-            anchor: '99%'
-        }, {
-            xtype: 'textarea',
-            fieldLabel: _('counters_item_content'),
-            name: 'content',
-            id: config.id + '-content',
-            anchor: '99%',
-            height: 150,
-        }, {
-            xtype: 'modx-combo',
-            fieldLabel: _('counters_item_position'),
-            name: 'position',
-            id: config.id + '-position',
-            store: ['Head','Body']
-        }, {
-            xtype: 'xcheckbox',
-            boxLabel: _('counters_item_active'),
-            name: 'active',
-            id: config.id + '-active',
-        }];
+        return Counters.window.CreateItem.prototype.getFields.call(this, config)
     },
 
     loadDropZones: function () {
